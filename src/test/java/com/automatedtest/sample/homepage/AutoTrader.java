@@ -3,6 +3,7 @@ package com.automatedtest.sample.homepage;
 import com.automatedtest.sample.basepage.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -48,10 +49,10 @@ public class AutoTrader extends BasePage {
     @FindBy(xpath = "//div[text()='Convertible']")
     private static WebElement convertibleCheckBox;
 
-    @FindBy(xpath = "//*[text()='From']")
+    @FindBy(xpath = "///label[text()='From']/following::select[1]")
     private static WebElement fromYear;
 
-    @FindBy(xpath = "//*[text()='From']")
+    @FindBy(xpath = "//label[text()='From']/following::select[2]")
     private static WebElement toYear;
 
     @FindBy(xpath = "//*[text()='Vehicle 1']/following::select[1]")
@@ -118,7 +119,9 @@ public class AutoTrader extends BasePage {
      * Launches the web page
      */
     public void goToHomePage() {
+
         driver.get(HOME_PAGE_URL);
+        driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         wait.forLoading(10);
     }
@@ -129,7 +132,7 @@ public class AutoTrader extends BasePage {
      * @param elementName - Name of the Web Element
      */
     public void verifyElementIsVisible(String elementName) {
-        wait.forElementToBeDisplayed(15, returnElement(elementName), elementName);
+        wait.forElementToBeDisplayed(5, returnElement(elementName), elementName);
         Assert.assertTrue("FAIL: Yellow Triangle not present", returnElement(elementName).isDisplayed());
     }
 
